@@ -296,6 +296,36 @@
 				"url":  "http://nin-loyalty-backend.herokuapp.com/api/v1/redeem",
 			},
 			"response": []
+		},
+		{
+			"name": "Update app data config",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "a8e4287b-12a7-4620-afac-b0546449990a",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"logo\":\"\",\n\t\"privacyLink\":\"\",\n\t\"termConditionsLink\":\"\",\n\t\"interestedFields\":[1,2,3],\n\t\"bannerHeaderImg\":\"\"\n\n}"
+				},
+				"url": "http://nin-loyalty-backend.herokuapp.com/api/v1/app-data"
+			},
+			"response": []
 		}
 	]
 }
