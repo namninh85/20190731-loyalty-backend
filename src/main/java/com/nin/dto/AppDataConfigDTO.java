@@ -1,13 +1,18 @@
 package com.nin.dto;
 
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class AppDataConfigDTO {
     private Long appDataConfigId;
     private String bannerHeaderImg;
-    private String interestedField;
     private String logo;
     private String privacyLink;
     private String termConditionsLink;
+    List<Interest> interestedFields;
 
     public Long getAppDataConfigId() {
         return appDataConfigId;
@@ -25,13 +30,6 @@ public class AppDataConfigDTO {
         this.bannerHeaderImg = bannerHeaderImg;
     }
 
-    public String getInterestedField() {
-        return interestedField;
-    }
-
-    public void setInterestedField(String interestedField) {
-        this.interestedField = interestedField;
-    }
 
     public String getLogo() {
         return logo;
@@ -55,5 +53,44 @@ public class AppDataConfigDTO {
 
     public void setTermConditionsLink(String termConditionsLink) {
         this.termConditionsLink = termConditionsLink;
+    }
+
+    public void setInterestedFields(List<Interest> interestedFields) {
+        this.interestedFields = interestedFields;
+    }
+
+    public String getStringInterestedFields() {
+        if(this.interestedFields != null && this.interestedFields.size() > 0) {
+            List<String> interests = new ArrayList<>();
+            for (Interest interest : this.interestedFields) {
+                interests.add(interest.getValue());
+            }
+            if (interests.size() > 0) {
+                return StringUtils.join(interests, ",");
+            }
+        }
+
+        return "";
+    }
+
+    class Interest{
+        String name;
+        String value;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 }

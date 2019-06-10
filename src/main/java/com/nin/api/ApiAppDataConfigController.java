@@ -12,10 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -65,38 +62,49 @@ public class ApiAppDataConfigController {
         }
     }
 
-//    @PostMapping("/app-data")
-//    public ResponseEntity<Map<String, Object>> createOrUpdateAppDataConfig(@RequestBody Map<String, Object> appDataConfigDTO) {
-//        try {
-//            Map<String, Object> obj = new HashMap<>();
-//            Map<String, Object> out = new HashMap<String, Object>();
-//            AppDataConfig appDataConfig = new AppDataConfig();
-//            Integer appDataConfigId = (Integer) appDataConfigDTO.get("app_data_config_id");
-//            if (appDataConfig != null || appDataConfig > 0 ){
-//
-//            }
-//            if (appDataConfigDTO.get("app_data_config_id") != null) {
-//                appDataConfig.setAvartarImg(profileDTO.get("avatarImage").toString());
-//            }
-//            AppDataConfig appDataConfig = appDataConfigService.findByAppDataConfigId(Id);
-//            if (appDataConfig == null) {
-//                obj.put("Message", "App Data Config is not available !");
-//                out.put("data", obj);
-//                out.put("error", 0);
-//                return new ResponseEntity<>(out, HttpStatus.BAD_REQUEST);
-//            }
-//            if ()
-//
-//
-//
-//
-//            return new ResponseEntity<>(out, HttpStatus.OK);
-//        } catch (Exception e) {
-//            Map<String, Object> responseMap = new HashMap<String, Object>();
-//            responseMap.put("Message", e.getMessage());
-//            responseMap.put("data", responseMap);
-//            responseMap.put("error", -1);
-//            return new ResponseEntity<>(responseMap, HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    @PostMapping("/app-data")
+    public ResponseEntity<Map<String, Object>> createOrUpdateAppDataConfig(@RequestBody Map<String, Object> appDataConfigDTO) {
+        try {
+            Map<String, Object> obj = new HashMap<>();
+            Map<String, Object> out = new HashMap<String, Object>();
+            AppDataConfig appDataConfig = new AppDataConfig();
+            Integer appDataConfigId = (Integer) appDataConfigDTO.get("appDataConfigId");
+            if (appDataConfigId != null) {
+                AppDataConfig appDataConfigUpdate = appDataConfigService.findByAppDataConfigId(appDataConfigId.longValue());
+                if (appDataConfigUpdate != null){
+                    appDataConfig = appDataConfigUpdate;
+                }
+
+            }
+            if (appDataConfigDTO.get("bannerHeaderImg") != null) {
+                appDataConfig.setBannerHeaderImg(appDataConfigDTO.get("bannerHeaderImg").toString());
+            }
+            if (appDataConfigDTO.get("logo") != null) {
+                appDataConfig.setLogo(appDataConfigDTO.get("logo").toString());
+            }
+            if (appDataConfigDTO.get("privacyLink") != null) {
+                appDataConfig.setPrivacyLink(appDataConfigDTO.get("privacyLink").toString());
+            }
+            if (appDataConfigDTO.get("termConditionsLink") != null) {
+                appDataConfig.setTermConditionsLink(appDataConfigDTO.get("termConditionsLink").toString());
+            }
+            if (appDataConfigDTO.get("interestedFields") != null) {
+                String interestedFields = appDataConfigDTO.get("interestedFields").toString();
+                String replaceString = interestedFields.replace("[", "").replace("]", "").replace(" ", "");
+                appDataConfig.setInterestedFields(replaceString);
+            }
+            appDataConfig.setDeleted(false);
+            appDataConfigService.createOrUpdateAppDataConfig(appDataConfig);
+            obj.put("Message", "Update app data config success !");
+            out.put("data", obj);
+            out.put("error", 0);
+            return new ResponseEntity<>(out, HttpStatus.OK);
+        } catch (Exception e) {
+            Map<String, Object> responseMap = new HashMap<String, Object>();
+            responseMap.put("Message", e.getMessage());
+            responseMap.put("data", responseMap);
+            responseMap.put("error", -1);
+            return new ResponseEntity<>(responseMap, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
