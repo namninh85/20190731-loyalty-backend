@@ -509,6 +509,8 @@ INSERT INTO public.customer_rewards_log(customer_rewards_log_id, customer_id, po
 VALUES (10,1,-4000,1,NULL,1559687829,TRUE,FALSE);
 INSERT INTO public.customer_rewards_log(customer_rewards_log_id, customer_id, point_burn_earn, loyalty_program_id, voucher_code_id, reward_date, is_active, is_deleted)
 VALUES (11,1,-4000,2,NULL,1559687829,TRUE,FALSE);
+SELECT setval('customer_rewards_log_customer_rewards_log_id_seq', 12, true); 
+
 
 --2019/06/05 - Dieu - inset data to table store
 DELETE FROM public.store;
