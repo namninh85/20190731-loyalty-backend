@@ -79,7 +79,7 @@ public class ApiUserController {
 								aCustomer.getBannerHeaderImg() == null ? "" : aCustomer.getBannerHeaderImg());
 						put("qrcodeImage", aCustomer.getQrcodeImg() == null ? "" : aCustomer.getQrcodeImg());
 						if (aCustomer.getDob() != null) {
-							put("dateOfBirth", DateUtil.longDateToString(aCustomer.getDob()));
+							put("dateOfBirth", DateUtil.dateToString(aCustomer.getDob()));
 						} else {
 							put("dateOfBirth", "");
 						}
@@ -130,7 +130,7 @@ public class ApiUserController {
 			}
 			
 			if (profileDTO.get("dateOfBirth") != null) {
-				aCustomer.setDob(DateUtil.strindDateToLong(profileDTO.get("dateOfBirth").toString()));
+				aCustomer.setDob(DateUtil.stringToDate(profileDTO.get("dateOfBirth").toString()));
 			}
 			
 			if (profileDTO.get("phone") != null) {

@@ -45,5 +45,25 @@ public class DateUtil {
 		}  
 		return longDate;
 	}
+	
+	public static Date stringToDate(String sDate) {
+		
+		 SimpleDateFormat formatter1=new SimpleDateFormat(DATE_FORMAT);  
+		 try {
+			return formatter1.parse(sDate);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+	
+	public static String dateToString(Date date) {
+		
+		 SimpleDateFormat formatter1=new SimpleDateFormat(DATE_FORMAT);  
+		 try {
+			return formatter1.format(date);  
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 }

@@ -7,10 +7,11 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "contact")
+@Table(name = "contact", schema="salesforce")
 public class Customer implements java.io.Serializable {
 	
 	/**
@@ -19,6 +20,7 @@ public class Customer implements java.io.Serializable {
 	private static final long serialVersionUID = -8963700376471819016L;
 
 	@Id
+	@Column(name = "id")
 	private long customerId;
 	@Column(name = "firstname")
 	private String firstName;
@@ -31,7 +33,7 @@ public class Customer implements java.io.Serializable {
 	private Integer totalVoucher;
 	private Integer totalPoint;
 	private Integer totalOffer;
-	private boolean isActive;
+	private Boolean isActive = true;
 	private String interestedFields;
 	private String address;
 	@Column(name = "picture__c")
@@ -39,22 +41,9 @@ public class Customer implements java.io.Serializable {
 	private String bannerHeaderImg;
 	private String qrcodeImg;
 	@Column(name = "birthdate")
-	private Long dob;
+	private Date dob;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
-	@JoinTable(name = "customer_has_voucher", joinColumns = {
-			@JoinColumn(name = "customer_id", nullable = false)},
-			inverseJoinColumns = {@JoinColumn(name = "voucher_code_id", nullable = false)}
-	)
-	private List<VoucherCode> voucherCodes;
-	@ManyToMany(fetch = FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
-	@JoinTable(name = "customer_rewards_log", joinColumns = {
-			@JoinColumn(name = "customer_id", nullable = false)},
-			inverseJoinColumns = {@JoinColumn(name = "loyalty_program_id", nullable = false)}
-	)
-	private List<LoyaltyProgram> loyaltyPrograms;
+	
 	public Customer() {
 	}
 
@@ -64,7 +53,7 @@ public class Customer implements java.io.Serializable {
 
 	public Customer(int customerId, String firstName, String lastName, String email, String phone, String lang,
 			Integer totalVoucher, Boolean isActive, String interestedFields, String address,
-			String avartarImg, String bannerHeaderImg, String qrcodeImg , List<VoucherCode> voucherCodes,List<LoyaltyProgram> loyaltyPrograms) {
+			String avartarImg, String bannerHeaderImg, String qrcodeImg) {
 		this.customerId = customerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -80,8 +69,7 @@ public class Customer implements java.io.Serializable {
 		this.bannerHeaderImg = bannerHeaderImg;
 		this.qrcodeImg = qrcodeImg;
 
-		this.voucherCodes = voucherCodes;
-		this.loyaltyPrograms = loyaltyPrograms;
+		
 	}
 
 	public long getCustomerId() {
@@ -165,11 +153,13 @@ public class Customer implements java.io.Serializable {
 		this.totalOffer = totalOffer;
 	}
 
-	public boolean isActive() {
+	
+
+	public Boolean getIsActive() {
 		return isActive;
 	}
 
-	public void setActive(boolean isActive) {
+	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
 
@@ -213,27 +203,12 @@ public class Customer implements java.io.Serializable {
 		this.qrcodeImg = qrcodeImg;
 	}
 
-	public List<VoucherCode> getVoucherCodes() {
-		return voucherCodes;
-	}
 
-	public void setVoucherCodes(List<VoucherCode> voucherCodes) {
-		this.voucherCodes = voucherCodes;
-	}
-
-	public List<LoyaltyProgram> getLoyaltyPrograms() {
-		return loyaltyPrograms;
-	}
-
-	public void setLoyaltyPrograms(List<LoyaltyProgram> loyaltyPrograms) {
-		this.loyaltyPrograms = loyaltyPrograms;
-	}
-
-	public Long getDob() {
+	public Date getDob() {
 		return dob;
 	}
 
-	public void setDob(Long dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 	
