@@ -10,7 +10,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "contact")
 public class Customer implements java.io.Serializable {
 	
 	/**
@@ -20,10 +20,12 @@ public class Customer implements java.io.Serializable {
 
 	@Id
 	private long customerId;
-	
+	@Column(name = "firstname")
 	private String firstName;
+	@Column(name = "lastname")
 	private String lastName;
 	private String email;
+	@Column(name = "mobilephone")
 	private String phone;
 	private String lang;
 	private Integer totalVoucher;
@@ -32,9 +34,11 @@ public class Customer implements java.io.Serializable {
 	private boolean isActive;
 	private String interestedFields;
 	private String address;
+	@Column(name = "picture__c")
 	private String avartarImg;
 	private String bannerHeaderImg;
 	private String qrcodeImg;
+	@Column(name = "birthdate")
 	private Long dob;
 
 	@ManyToMany(fetch = FetchType.EAGER)

@@ -22,14 +22,6 @@ public class Category {
     private Boolean isDeleted;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "product_in_pd_category", joinColumns = {
-            @JoinColumn(name = "product_category_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "product_id", nullable = false)}
-    )
-
-
-    private List<Product> products;
 
     public Category() {
     }
@@ -45,7 +37,7 @@ public class Category {
         this.parentId = parentId;
         this.isActive = isActive;
         this.isDeleted = isDeleted;
-        this.products = products;
+       
     }
 
     public Long getProductCategoryId() {
@@ -120,11 +112,4 @@ public class Category {
         isDeleted = deleted;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
 }

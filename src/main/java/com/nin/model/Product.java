@@ -1,7 +1,5 @@
 package com.nin.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -16,49 +14,28 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
+    
+    
     private String code;
+    
     private String name;
+   
     private String description;
+   
+    @Column(name = "picture__c")
     private String image;
+    
+    @Column(name = "weblink__c")
     private String webLink;
+    
     private Boolean hasNew;
+   
     private Boolean isActive;
+    
     private Boolean isDeleted;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    @JoinTable(name = "product_in_pd_category", joinColumns = {
-            @JoinColumn(name = "product_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "product_category_id", nullable = false)}
-    )
-    private List<Category> categories;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    @JoinTable(name = "product_in_store", joinColumns = {
-            @JoinColumn(name = "product_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "store_id", nullable = false)}
-    )
-    private List<Store> stores;
-
     public Product() {
-    }
-
-    public Product(Long productId, String code, String name, String description, String image,
-                   String webLink, Boolean hasNew, Boolean isActive, Boolean isDeleted,
-                   List<Category> categories, List<Store> stores) {
-        this.productId = productId;
-        this.code = code;
-        this.name = name;
-        this.description = description;
-        this.image = image;
-        this.webLink = webLink;
-        this.hasNew = hasNew;
-        this.isActive = isActive;
-        this.isDeleted = isDeleted;
-        this.categories = categories;
-        this.stores = stores;
     }
 
     public Long getProductId() {
@@ -133,19 +110,5 @@ public class Product {
         isDeleted = deleted;
     }
 
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public List<Store> getStores() {
-        return stores;
-    }
-
-    public void setStores(List<Store> stores) {
-        this.stores = stores;
-    }
+   
 }
