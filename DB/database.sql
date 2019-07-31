@@ -129,7 +129,7 @@ CREATE TABLE product_category(
 
 
 CREATE TABLE product(
-    product_id bigint serial,
+    product_id serial,
     code character varying(255),
     description text,
     has_new boolean,
@@ -155,8 +155,8 @@ CREATE TABLE price(
    price_id serial,
    product_id int,
    value decimal,
-   start_date ,
-   end_date start_date,
+   start_date date,
+   end_date  date,
    is_active boolean  DEFAULT 'TRUE',
    is_deleted boolean  DEFAULT 'FALSE',
    PRIMARY KEY(price_id)
@@ -176,17 +176,18 @@ CREATE TABLE store(
 );
 
 CREATE TABLE product_in_store(
+   product_in_store_id serial,
    product_id int,
    store_id int,
    stock_amount int,
    is_active boolean  DEFAULT 'TRUE',
    is_deleted boolean  DEFAULT 'FALSE',
-   PRIMARY KEY(store_id)
+   PRIMARY KEY(product_in_store_id)
 );
 
 
 CREATE TABLE customer(
-   customer_id int,
+   customer_id serial,
    address character varying(500) ,
     avartar_img text ,
     banner_header_img character varying(255) ,
@@ -237,7 +238,7 @@ CREATE TABLE voucher_code(
 CREATE TABLE loyalty_program(
    loyalty_program_id serial,
    available integer,
-    end_date date
+    end_date date,
 	point integer,
     start_date date,
     total_release integer,
@@ -314,4 +315,16 @@ CREATE TABLE interested_field (
     is_active boolean  DEFAULT 'TRUE',
     is_deleted boolean  DEFAULT 'FALSE',
     PRIMARY KEY (interested_field_id)
+);
+
+-- 
+CREATE TABLE public.utility
+(
+    utility_id serial,
+    image character varying(255) ,
+    is_active boolean,
+    is_deleted boolean,
+    name character varying(255) ,
+    web_link character varying(255) ,
+    PRIMARY KEY (utility_id)
 );
