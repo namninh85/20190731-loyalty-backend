@@ -3,43 +3,28 @@ package com.nin.model;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "campaign")
 @Where(clause = "is_deleted ='false'")
 public class LoyaltyProgram {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long loyaltyProgramId ;
     private Long voucherId;
-    @Column(name = "startdate")
-    private BigInteger startDate;
-    @Column(name = "enddate")
-    private BigInteger endDate;
-    @Column(name = "point__c")
+    private Date startDate;
+    private Date endDate;
     private Integer point;
-    @Column(name = "total_release__c")
     private Integer total_release;
-     @Column(name = "available__c")
     private Integer available;
     private Boolean isActive;
     private Boolean isDeleted;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "loyalty_program_id")
-    private List<CustomerRewardsLog> customerRewardsLogs =new ArrayList<>();
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "customer_rewards_log", joinColumns = {
-            @JoinColumn(name = "loyalty_program_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "customer_id", nullable = false)}
-    )
-    private List<Customer> customers;
     public LoyaltyProgram(){}
 
-    public LoyaltyProgram(Long loyaltyProgramId, Long voucherId, BigInteger startDate, BigInteger endDate, Integer point, Integer total_release, Integer available, Boolean isActive, Boolean isDeleted, List<CustomerRewardsLog> customerRewardsLogs, List<Customer> customers) {
+    public LoyaltyProgram(Long loyaltyProgramId, Long voucherId, Date startDate, Date endDate, Integer point, Integer total_release, Integer available, Boolean isActive, Boolean isDeleted) {
         this.loyaltyProgramId = loyaltyProgramId;
         this.voucherId = voucherId;
         this.startDate = startDate;
@@ -49,8 +34,7 @@ public class LoyaltyProgram {
         this.available = available;
         this.isActive = isActive;
         this.isDeleted = isDeleted;
-        this.customerRewardsLogs = customerRewardsLogs;
-        this.customers = customers;
+        
     }
 
     public Long getLoyaltyProgramId() {
@@ -69,19 +53,19 @@ public class LoyaltyProgram {
         this.voucherId = voucherId;
     }
 
-    public BigInteger getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(BigInteger startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public BigInteger getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(BigInteger endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -124,20 +108,7 @@ public class LoyaltyProgram {
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
+    
 
-    public List<CustomerRewardsLog> getCustomerRewardsLogs() {
-        return customerRewardsLogs;
-    }
-
-    public void setCustomerRewardsLogs(List<CustomerRewardsLog> customerRewardsLogs) {
-        this.customerRewardsLogs = customerRewardsLogs;
-    }
-
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
-    }
+    
 }

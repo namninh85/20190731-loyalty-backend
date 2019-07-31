@@ -22,7 +22,6 @@ import com.nin.model.User;
 import com.nin.service.InterestedFieldService;
 import com.nin.service.UserService;
 import com.nin.util.DateUtil;
-import com.nin.util.InterestedField;
 
 @RestController
 @RequestMapping("/api/v1/user")

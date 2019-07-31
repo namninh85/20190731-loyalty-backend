@@ -24,18 +24,12 @@ public class Voucher {
     private Boolean isActive;
     private Boolean isDeleted;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "voucherId")
-    private List<LoyaltyProgram> loyaltyPrograms =new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "voucherId")
-    private List<VoucherCode> voucherCodes =new ArrayList<>();
+    
     public Voucher(){
 
     }
 
-    public Voucher(Long voucherId, String name, String description, String image, Integer value, String currency, Integer numberDateUse, Boolean isActive, Boolean isDeleted, List<LoyaltyProgram> loyaltyPrograms, List<VoucherCode> voucherCodes) {
+    public Voucher(Long voucherId, String name, String description, String image, Integer value, String currency, Integer numberDateUse, Boolean isActive, Boolean isDeleted) {
         this.voucherId = voucherId;
         this.name = name;
         this.description = description;
@@ -45,8 +39,7 @@ public class Voucher {
         this.numberDateUse = numberDateUse;
         this.isActive = isActive;
         this.isDeleted = isDeleted;
-        this.loyaltyPrograms = loyaltyPrograms;
-        this.voucherCodes = voucherCodes;
+       
     }
 
     public Long getVoucherId() {
@@ -121,19 +114,5 @@ public class Voucher {
         isDeleted = deleted;
     }
 
-    public List<LoyaltyProgram> getLoyaltyPrograms() {
-        return loyaltyPrograms;
-    }
-
-    public void setLoyaltyPrograms(List<LoyaltyProgram> loyaltyPrograms) {
-        this.loyaltyPrograms = loyaltyPrograms;
-    }
-
-    public List<VoucherCode> getVoucherCodes() {
-        return voucherCodes;
-    }
-
-    public void setVoucherCodes(List<VoucherCode> voucherCodes) {
-        this.voucherCodes = voucherCodes;
-    }
+   
 }

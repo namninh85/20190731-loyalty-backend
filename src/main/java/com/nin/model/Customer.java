@@ -1,17 +1,13 @@
 package com.nin.model;
 // Generated May 28, 2019 6:18:43 AM by Hibernate Tools 5.4.2.Final
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
 
-import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
-@Table(name = "contact", schema="salesforce")
+@Table(name = "customer")
 public class Customer implements java.io.Serializable {
 	
 	/**
@@ -20,14 +16,10 @@ public class Customer implements java.io.Serializable {
 	private static final long serialVersionUID = -8963700376471819016L;
 
 	@Id
-	@Column(name = "id")
 	private long customerId;
-	@Column(name = "firstname")
 	private String firstName;
-	@Column(name = "lastname")
 	private String lastName;
 	private String email;
-	@Column(name = "mobilephone")
 	private String phone;
 	private String lang;
 	private Integer totalVoucher;
@@ -36,11 +28,9 @@ public class Customer implements java.io.Serializable {
 	private Boolean isActive = true;
 	private String interestedFields;
 	private String address;
-	@Column(name = "picture__c")
 	private String avartarImg;
 	private String bannerHeaderImg;
 	private String qrcodeImg;
-	@Column(name = "birthdate")
 	private Date dob;
 
 	

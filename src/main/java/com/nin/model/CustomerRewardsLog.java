@@ -1,10 +1,10 @@
 package com.nin.model;
 
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "customer_rewards_log")
@@ -18,14 +18,14 @@ public class CustomerRewardsLog implements Serializable {
     private Long loyaltyProgramId;
     private Long voucherCodeId;
     private Integer pointBurnEarn;
-    private BigInteger rewardDate;
+    private Date rewardDate;
     private Boolean isActive;
     private Boolean isDeleted;
 
     public CustomerRewardsLog() {
     }
 
-    public CustomerRewardsLog(Long customerRewardsLogId, Long customerId, Long loyaltyProgramId, Long voucherCodeId, Integer pointBurnEarn, BigInteger rewardDate, Boolean isActive, Boolean isDeleted) {
+    public CustomerRewardsLog(Long customerRewardsLogId, Long customerId, Long loyaltyProgramId, Long voucherCodeId, Integer pointBurnEarn, Date rewardDate, Boolean isActive, Boolean isDeleted) {
         this.customerRewardsLogId = customerRewardsLogId;
         this.customerId = customerId;
         this.loyaltyProgramId = loyaltyProgramId;
@@ -76,11 +76,11 @@ public class CustomerRewardsLog implements Serializable {
         this.pointBurnEarn = pointBurnEarn;
     }
 
-    public BigInteger getRewardDate() {
+    public Date getRewardDate() {
         return rewardDate;
     }
 
-    public void setRewardDate(BigInteger rewardDate) {
+    public void setRewardDate(Date rewardDate) {
         this.rewardDate = rewardDate;
     }
 

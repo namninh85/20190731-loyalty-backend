@@ -5,7 +5,6 @@ import com.nin.repository.LoyaltyProgramRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,15 +18,14 @@ public class LoyaltyProgramService {
         this.loyaltyProgramRepository = loyaltyProgramRepository;
     }
     public List<LoyaltyProgram> findLoyaltyProgramByDate(){
-        Long date  = new Date().getTime()/1000;
-        return  loyaltyProgramRepository.findLoyaltyProgramByDate( date);
+        return  loyaltyProgramRepository.findLoyaltyProgramByDate( new Date());
     }
 
     public LoyaltyProgram finByLoyaltyProgramId(Long Id){
         return loyaltyProgramRepository.findByLoyaltyProgramId(Id);
     }
 
-    public LoyaltyProgram findLoyaltyProgramByIdAndDate(Long date ,Long id){
+    public LoyaltyProgram findLoyaltyProgramByIdAndDate(Date date ,Long id){
         return loyaltyProgramRepository.findLoyaltyProgramByIdAndDate(date,id);
     }
 

@@ -1,18 +1,21 @@
 package com.nin.api;
 
-import com.nin.model.AppDataConfig;
-import com.nin.model.Category;
-import com.nin.model.InterestedField;
-import com.nin.service.AppDataConfigService;
-import com.nin.service.InterestedFieldService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.*;
+import com.nin.model.AppDataConfig;
+import com.nin.service.AppDataConfigService;
+import com.nin.service.InterestedFieldService;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -30,23 +33,26 @@ public class ApiAppDataConfigController {
         try {
             AppDataConfig appDataConfig = appDataConfigService.findByIsActive();
             Map<String, Object> obj = new HashMap<>();
-            obj.put("appDataConfigId", appDataConfig.getAppDataConfigId());
-            obj.put("bannerHeaderImage", appDataConfig.getBannerHeaderImg());
-            List<Map<String, Object>> listFields = new ArrayList<>();
-            if (appDataConfig.getInterestedFields() != null) {
-                List<Object[]> interestedFields = interestedFieldService.findByListId(appDataConfig.getInterestedFields());
-                for (Object[] field : interestedFields) {
-                    Map<String, Object> fieldObj = new HashMap<>();
-                    fieldObj.put("value", field[0]);
-                    fieldObj.put("name", field[1]);
-                    listFields.add(fieldObj);
+            if(appDataConfig != null ) {
+            	obj.put("appDataConfigId", appDataConfig.getAppDataConfigId());
+                obj.put("bannerHeaderImage", appDataConfig.getBannerHeaderImg());
+                List<Map<String, Object>> listFields = new ArrayList<>();
+                if (appDataConfig.getInterestedFields() != null) {
+                    List<Object[]> interestedFields = interestedFieldService.findByListId(appDataConfig.getInterestedFields());
+                    for (Object[] field : interestedFields) {
+                        Map<String, Object> fieldObj = new HashMap<>();
+                        fieldObj.put("value", field[0]);
+                        fieldObj.put("name", field[1]);
+                        listFields.add(fieldObj);
+                    }
                 }
-            }
 
-            obj.put("interestedFields", listFields);
-            obj.put("logo", appDataConfig.getLogo());
-            obj.put("privacyLink", appDataConfig.getPrivacyLink());
-            obj.put("termConditionsLink", appDataConfig.getTermConditionsLink());
+                obj.put("interestedFields", listFields);
+                obj.put("logo", appDataConfig.getLogo());
+                obj.put("privacyLink", appDataConfig.getPrivacyLink());
+                obj.put("termConditionsLink", appDataConfig.getTermConditionsLink());
+            }
+            
             Map<String, Object> out = new HashMap<String, Object>() {{
                 put("data", obj);
                 put("error", 0);

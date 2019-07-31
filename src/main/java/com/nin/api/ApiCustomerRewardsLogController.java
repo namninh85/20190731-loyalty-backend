@@ -10,7 +10,6 @@ import com.nin.service.UserService;
 import com.nin.service.VoucherService;
 import com.nin.util.DateUtil;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +58,7 @@ public class ApiCustomerRewardsLogController {
                 obj.put("releasesTotal", loyaltyProgram.getTotal_release());
                 obj.put("point", loyaltyProgram.getPoint());
                 obj.put("uAvailables", customerRewardsLog[1]);
-				if (date >= loyaltyProgram.getStartDate().longValue() && date <= loyaltyProgram.getEndDate().longValue()){
+				if (date >= loyaltyProgram.getStartDate().getTime()/1000 && date <= loyaltyProgram.getEndDate().getTime()/1000){
 					obj.put("status",true);
 				}	else{
 					obj.put("status",false);
@@ -138,7 +137,7 @@ public class ApiCustomerRewardsLogController {
 								}
 								if (customerRewardsLog.getRewardDate() != null) {
 									obj.put("rewardDate",
-											DateUtil.longDateToString(customerRewardsLog.getRewardDate().longValue()));
+											DateUtil.longDateToString(customerRewardsLog.getRewardDate().getTime()/1000));
 								} else {
 									obj.put("rewardDate", "");
 								}

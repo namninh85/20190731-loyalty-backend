@@ -3,6 +3,7 @@ package com.nin.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
 
 @Entity
 @Table(name = "customer_has_voucher")
@@ -10,18 +11,16 @@ public class CustomerHasVoucher implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerHasVoucherId;
-    @Column(name = "customer_id",nullable = false)
     private Long customerId;
-    @Column(name = "voucher_code_id",nullable = false)
     private Long voucherCodeId;
-    private BigInteger receivedDate;
-    private BigInteger expiredDate;
+    private Date receivedDate;
+    private Date expiredDate;
     private Boolean isActive;
     private Boolean isDeleted;
 
     public CustomerHasVoucher(){}
 
-    public CustomerHasVoucher(Long customerHasVoucherId, Long customerId, Long voucherCodeId, BigInteger receivedDate, BigInteger expiredDate, Boolean isActive, Boolean isDeleted) {
+    public CustomerHasVoucher(Long customerHasVoucherId, Long customerId, Long voucherCodeId, Date receivedDate, Date expiredDate, Boolean isActive, Boolean isDeleted) {
         this.customerHasVoucherId = customerHasVoucherId;
         this.customerId = customerId;
         this.voucherCodeId = voucherCodeId;
@@ -55,19 +54,19 @@ public class CustomerHasVoucher implements Serializable {
         this.voucherCodeId = voucherCodeId;
     }
 
-    public BigInteger getReceivedDate() {
+    public Date getReceivedDate() {
         return receivedDate;
     }
 
-    public void setReceivedDate(BigInteger receivedDate) {
+    public void setReceivedDate(Date receivedDate) {
         this.receivedDate = receivedDate;
     }
 
-    public BigInteger getExpiredDate() {
+    public Date getExpiredDate() {
         return expiredDate;
     }
 
-    public void setExpiredDate(BigInteger expiredDate) {
+    public void setExpiredDate(Date expiredDate) {
         this.expiredDate = expiredDate;
     }
 

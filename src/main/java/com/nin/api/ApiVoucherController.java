@@ -1,8 +1,10 @@
 package com.nin.api;
 
-import com.nin.dto.RedeemDTO;
-import com.nin.model.*;
-import com.nin.service.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,11 +12,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigInteger;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import com.nin.model.Customer;
+import com.nin.model.CustomerHasVoucher;
+import com.nin.model.CustomerRewardsLog;
+import com.nin.model.LoyaltyProgram;
+import com.nin.model.User;
+import com.nin.model.Voucher;
+import com.nin.service.CustomerHasVoucherService;
+import com.nin.service.CustomerRewardsLogService;
+import com.nin.service.CustomerService;
+import com.nin.service.LoyaltyProgramService;
+import com.nin.service.UserService;
+import com.nin.service.VoucherCodeService;
+import com.nin.service.VoucherService;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -43,7 +53,8 @@ public class ApiVoucherController {
             Map<String, Object> out = new HashMap<>();
             Map<String, Object> message = new HashMap<>();
             out.put("error", -1);
-            Long date = new Date().getTime() / 1000;
+            Date date = new Date();
+         
             User currentUser = userService.getCurrentUser();
             Customer customer = customerService.findByCustomerId(currentUser.getId());
             //Check null
@@ -77,6 +88,11 @@ public class ApiVoucherController {
 
             Voucher voucher = voucherService.findByVoucherId(loyaltyProgram.getVoucherId());
             Long voucherCode = voucherCodeService.findVoucherCodeByVoucherId(loyaltyProgram.getVoucherId());
+            
+         // convert date to calendar
+            Calendar calendarVoucher = Calendar.getInstance();
+            calendarVoucher.setTime(date);
+            calendarVoucher.add(Calendar.DATE, voucher.getNumberDateUse());
             for (Integer i=0;i<availableVoucher;i++){
                 //Insert CustomerRewardsLog
                 CustomerRewardsLog customerRewardsLog = new CustomerRewardsLog();
@@ -84,7 +100,7 @@ public class ApiVoucherController {
                 customerRewardsLog.setPointBurnEarn(-1 * loyaltyProgram.getPoint());
                 customerRewardsLog.setLoyaltyProgramId(loyaltyProgram.getLoyaltyProgramId());
                 customerRewardsLog.setVoucherCodeId(voucherCode.longValue());
-                customerRewardsLog.setRewardDate(BigInteger.valueOf(date.longValue()));
+                customerRewardsLog.setRewardDate(new Date());
                 customerRewardsLog.setActive(true);
                 customerRewardsLog.setDeleted(false);
                 customerRewardsLogService.createCustomerRewardsLog(customerRewardsLog);
@@ -92,8 +108,8 @@ public class ApiVoucherController {
                 CustomerHasVoucher customerHasVoucher = new CustomerHasVoucher();
                 customerHasVoucher.setCustomerId(customer.getCustomerId());
                 customerHasVoucher.setVoucherCodeId(voucherCode);
-                customerHasVoucher.setReceivedDate(BigInteger.valueOf(date.longValue()));
-                customerHasVoucher.setExpiredDate(BigInteger.valueOf(date + 86400 * voucher.getNumberDateUse()));
+                customerHasVoucher.setReceivedDate(date);
+                customerHasVoucher.setExpiredDate(calendarVoucher.getTime());
                 customerHasVoucher.setActive(true);
                 customerHasVoucher.setDeleted(false);
                 customerHasVoucherService.createCustomerHasVoucher(customerHasVoucher);

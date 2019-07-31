@@ -22,10 +22,8 @@ public class Product {
    
     private String description;
    
-    @Column(name = "picture__c")
     private String image;
     
-    @Column(name = "weblink__c")
     private String webLink;
     
     private Boolean hasNew;

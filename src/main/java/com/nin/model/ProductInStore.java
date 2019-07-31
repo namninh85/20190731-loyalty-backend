@@ -6,11 +6,11 @@ import java.io.Serializable;
 @Entity
 @Table(name = "product_in_store")
 public class ProductInStore  implements Serializable {
-    @Id
-    @Column(name = "store_id",nullable = false )
+    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long productInStoreId;
     private Long storeId;
-    @Id
-    @Column(name = "product_id",nullable = false)
     private Long productId;
     private Integer stockAmount;
     private boolean isActive;

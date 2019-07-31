@@ -1,10 +1,10 @@
 package com.nin.api;
 
-import com.nin.model.Product;
-import com.nin.model.Store;
-import com.nin.model.Utility;
-import com.nin.service.StoreService;
-import com.nin.service.UtilityService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.nin.model.Store;
+import com.nin.service.StoreService;
+import com.nin.service.UtilityService;
 
 @RestController
 @RequestMapping("/api/v1")
