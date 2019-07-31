@@ -93,6 +93,7 @@ VALUES(1,'Dolpan Sam','https://media.ifind.vn/data/images/media/2bp-153145494573
 (8,'Voucher 100Gr Yến Tinh Chế - Yến Sào Cao Cấp Nha Trang NestViet','https://static.hotdeal.vn/images/1575/1574791/60x60/354049-qua-tet-y-nghia-to-yen-nhan-sam-chung-duong-phen-bionest-kid-danh-cho-moi-nguoi-cua-yen-sao-cao-cap-bionest.jpg',540000,'VND','Voucher 100Gr Yến Tinh Chế - Yến Sào Cao Cấp Nha Trang NestViet',20,true,false);
 
 -- 2019/06/07 - Ninh - data sample for voucher_code
+DELETE FROM public.voucher_code;
 INSERT INTO public.voucher_code(
  voucher_code_id, voucher_id, voucher_code, is_active, is_deleted)
  VALUES ('1', '1' ,'ABC' ,true ,false),
@@ -103,6 +104,7 @@ INSERT INTO public.voucher_code(
 ('6', '6' ,'ABC6' ,true ,false),
 ('7', '7' ,'ABC7' ,true ,false),
 ('8', '8' ,'ABC8' ,true ,false);
+
 DELETE FROM public.special_offer;
 INSERT INTO special_offer(special_offer_id, code, name, image, web_link, is_active, is_deleted) VALUES (1,'fast-delicious','fast-delicious','http://triqtran.github.io/images/loyalty/special-offer/fast-delicious.jpg','https://www.circlek.com.vn/vi/thuc-an-thuc-uong/',TRUE,FALSE);
 INSERT INTO special_offer(special_offer_id, code, name, image, web_link, is_active, is_deleted) VALUES (2,'food-box','food-box','http://triqtran.github.io/images/loyalty/special-offer/food-box.jpg','https://www.circlek.com.vn/vi/thuc-an-thuc-uong/thuc-an/',TRUE,FALSE);
@@ -166,3 +168,24 @@ VALUES(1,'http://triqtran.github.io/images/loyalty/others/bg-header.png','1,2,3,
 --2019/06/06 - Dieu - Insert data to table interested_field
 INSERT INTO public.interested_field(interested_field_id,name,is_active,is_deleted)
 VALUES(1,'Special Offers',true,false),(2,'Food',true,false),(3,'Drinks',true,false),(4,'Phone Cards',true,false);
+
+-- RESET ALL SEQUENCE 
+ALTER SEQUENCE userdb_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE role_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE product_category_product_category_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE product_product_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE product_in_pd_category_pipc_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE price_price_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE store_store_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE voucher_voucher_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE customer_customer_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE voucher_code_voucher_code_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE loyalty_program_loyalty_program_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE customer_rewards_log_customer_rewards_log_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE customer_has_voucher_customer_has_voucher_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE history_log_history_log_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE special_offer_special_offer_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE app_data_config_app_data_config_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE interested_field_interested_field_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE product_in_store_product_in_store_id_seq RESTART WITH 100 ;
+ALTER SEQUENCE utility_utility_id_seq RESTART WITH 100 ;
