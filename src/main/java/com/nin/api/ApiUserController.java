@@ -188,7 +188,7 @@ public class ApiUserController {
 			
 			if (profileDTO.get("address") != null) {
 				aCustomer.setAddress(profileDTO.get("address").toString());
-				aContact.setAddress(profileDTO.get("phone").toString());
+				aContact.setAddress(profileDTO.get("address").toString());
 			}
 
 			if (profileDTO.get("lang") != null) {
