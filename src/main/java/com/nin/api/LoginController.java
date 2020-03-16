@@ -142,7 +142,7 @@ public class LoginController {
 			aContact.setEmail(newUser.getEmail());
 			aContact.setLastName("new boy");
 
-			userService.createOrUpdateCustomer(aCustomer);
+			userService.createOrUpdateCustomer(aContact);
 			
 			
 			
