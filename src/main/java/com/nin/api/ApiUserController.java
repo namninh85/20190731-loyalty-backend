@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nin.model.Contact;
 import com.nin.model.Customer;
 import com.nin.model.User;
 import com.nin.service.InterestedFieldService;
@@ -56,18 +57,60 @@ public class ApiUserController {
 		try {
 			User currentUser = userService.getCurrentUser();
 			Customer dbCustomer = userService.findByCustomerIdAndEmail(currentUser.getId(), currentUser.getEmail());
+			Contact dbContact = userService.findByContactIdAndEmail(currentUser.getId(), currentUser.getEmail());
 			
 			Map<String, Object> out = new HashMap<String, Object>() {
 				{
 					put("id", currentUser.getId());
 					put("email", currentUser.getEmail());
 					Customer aCustomer = dbCustomer != null?dbCustomer: new Customer() ;
+					Contact aContact = dbContact != null?dbContact: new Contact() ;
 					
 					
-					if (aCustomer != null) {
-						put("name",( aCustomer.getFirstName() == null ? "" : aCustomer.getFirstName()) + " " + (aCustomer.getLastName() == null ? "": aCustomer.getLastName()));
-						put("phone", aCustomer.getPhone() == null ? "" : aCustomer.getPhone());
-						put("address", aCustomer.getAddress() == null ? "" : aCustomer.getAddress());
+					if (aCustomer != null && aContact != null) {
+						String nameOfContact =  (aContact.getFirstName() == null ? "" : aContact.getFirstName()) + " " + (aContact.getLastName() == null ? "": aContact.getLastName());
+						if(nameOfContact.length() > 0) {
+							put("name",nameOfContact);
+						}
+						else {
+							put("name",( aCustomer.getFirstName() == null ? "" : aCustomer.getFirstName()) + " " + (aCustomer.getLastName() == null ? "": aCustomer.getLastName()));
+						}
+						String phoneOfContact = aContact.getPhone() == null ? "" : aContact.getPhone();
+						if(phoneOfContact.length() > 0) {
+							put("phone", phoneOfContact);
+						}
+						else {
+							put("phone", aCustomer.getPhone() == null ? "" : aCustomer.getPhone());
+						}
+						
+						String addressOfContact = aContact.getAddress() == null ? "" : aContact.getAddress();
+						if(addressOfContact.length() > 0) {
+							put("address", addressOfContact);
+						}
+						else {
+							put("address", aCustomer.getAddress() == null ? "" : aCustomer.getAddress());
+						}
+						String qrcodeImageOfContact = aContact.getQrcodeImg() == null ? "" : aContact.getQrcodeImg();
+						if(qrcodeImageOfContact.length() > 0) {
+							put("qrcodeImage", qrcodeImageOfContact);
+						}
+						else {
+							put("qrcodeImage", aCustomer.getQrcodeImg() == null ? "" : aCustomer.getQrcodeImg());
+						}
+						
+						String dobOfContact = aContact.getDob() != null ? DateUtil.dateToString(aContact.getDob()) : "";
+						if(dobOfContact.length() > 0) {
+							put("dateOfBirth", dobOfContact);
+						}
+						else {
+							if (aCustomer.getDob() != null) {
+								put("dateOfBirth", DateUtil.dateToString(aCustomer.getDob()));
+							} else {
+								put("dateOfBirth", "");
+							}
+						}
+						
+						
 						put("language", aCustomer.getLang() == null ? "" : aCustomer.getLang());
 						put("avatarImage", aCustomer.getAvartarImg() == null ? "" : aCustomer.getAvartarImg());
 						put("registerDate", DateUtil.instantToString(currentUser.getCreated()));
@@ -76,12 +119,7 @@ public class ApiUserController {
 						put("offers", aCustomer.getTotalOffer());
 						put("bannerHeaderImage",
 								aCustomer.getBannerHeaderImg() == null ? "" : aCustomer.getBannerHeaderImg());
-						put("qrcodeImage", aCustomer.getQrcodeImg() == null ? "" : aCustomer.getQrcodeImg());
-						if (aCustomer.getDob() != null) {
-							put("dateOfBirth", DateUtil.dateToString(aCustomer.getDob()));
-						} else {
-							put("dateOfBirth", "");
-						}
+						
 
 						String interestedFields = aCustomer.getInterestedFields();
 						ArrayList<Map<String, Object>> interestedFieldsMap = getInfoInterestFields(interestedFields);
@@ -112,33 +150,45 @@ public class ApiUserController {
 		try {
 			User currentUser = userService.getCurrentUser();
 			Customer customerDB = userService.findByCustomerIdAndEmail(currentUser.getId(), currentUser.getEmail());
+			Contact contactDB = userService.findByContactIdAndEmail(currentUser.getId(), currentUser.getEmail());
+			
 			boolean isUpdate = customerDB != null;
 			Customer aCustomer = new Customer();
+			Contact aContact = new Contact();
 			if (isUpdate) {
 				aCustomer = customerDB;
+				aContact = contactDB;
 			}
 			aCustomer.setCustomerId(currentUser.getId());
 			aCustomer.setEmail(currentUser.getEmail());
+			
+			aContact.setCustomerId(currentUser.getId());
+			aContact.setEmail(currentUser.getEmail());
 
 			if (profileDTO.get("firstName") != null) {
 				aCustomer.setFirstName(profileDTO.get("firstName").toString());
+				aContact.setLastName(profileDTO.get("firstName").toString());
 			}
 			
 			if (profileDTO.get("lastName") != null) {
 				aCustomer.setLastName(profileDTO.get("lastName").toString());
 			}
 			
+			
 			if (profileDTO.get("dateOfBirth") != null) {
 				aCustomer.setDob(DateUtil.stringToDate(profileDTO.get("dateOfBirth").toString()));
+				aContact.setDob(DateUtil.stringToDate(profileDTO.get("dateOfBirth").toString()));
 			}
 			
 			if (profileDTO.get("phone") != null) {
 				aCustomer.setPhone(profileDTO.get("phone").toString());
+				aContact.setPhone(profileDTO.get("phone").toString());
 			}
 			
 			
 			if (profileDTO.get("address") != null) {
 				aCustomer.setAddress(profileDTO.get("address").toString());
+				aContact.setAddress(profileDTO.get("phone").toString());
 			}
 
 			if (profileDTO.get("lang") != null) {
@@ -170,19 +220,14 @@ public class ApiUserController {
 			if (StringUtils.isEmpty(aCustomer.getQrcodeImg())) {
 				aCustomer.setQrcodeImg(
 						generateQRCode(aCustomer.getCustomerId(), aCustomer.getEmail(), aCustomer.getFirstName()));
+				aContact.setQrcodeImg(
+						generateQRCode(aContact.getCustomerId(), aContact.getEmail(), aContact.getFirstName()));
+				
 			}
 
-// 			if (profileDTO.get("email") != null) {
-// 				if(!StringUtils.isEmpty(profileDTO.get("email").toString())) {
-// 					userService.updateUser(currentUser.getId(), profileDTO.get("email").toString(), null);
-					
-// 				}
-				
-// 			}
 			Customer saved = userService.createOrUpdateCustomer(aCustomer);
+			Contact contactSaved = userService.createOrUpdateCustomer(aContact);
 			
-			
-
 			
 			Map<String, Object> out = new HashMap<String, Object>();
 			out.put("data", profileDTO);
@@ -197,8 +242,8 @@ public class ApiUserController {
 		}
 	}
 
-	private String generateQRCode(long customerId, String email, String firstName) {
-		String q = "CustomerId: " + customerId + " ||| " + "email: " + email + " ||| " + "FirstName: " + firstName;
+	private String generateQRCode(long customerId, String email, String name) {
+		String q = "CustomerId: " + customerId + " ||| " + "email: " + email + " ||| " + "Name: " + name;
 		String url = null;
 		try {
 			url = "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=" + URLEncoder.encode(q, "UTF-8");

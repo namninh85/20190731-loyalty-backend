@@ -24,6 +24,12 @@ public class Contact implements java.io.Serializable {
 	private String lastName;
 	private String phone;
 	private String email;
+	@Column(name = "birthday")
+	private Date dob;
+	@Column(name = "otherstreet")
+	private String address;
+	@Column(name = "qr_code_link__c")
+	private String qrcodeImg;
 		
 	public Contact() {
 	}
@@ -70,6 +76,30 @@ public class Contact implements java.io.Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getQrcodeImg() {
+		return qrcodeImg;
+	}
+
+	public void setQrcodeImg(String qrcodeImg) {
+		this.qrcodeImg = qrcodeImg;
 	}
 	
 	

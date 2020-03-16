@@ -137,6 +137,7 @@ public class LoginController {
 
 			userService.createOrUpdateCustomer(aCustomer);
 			
+			//add data to sfdc
 			Contact aContact = new Contact();
 			aContact.setCustomerId(newUser.getId());
 			aContact.setEmail(newUser.getEmail());

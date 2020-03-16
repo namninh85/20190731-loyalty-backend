@@ -106,4 +106,8 @@ public class UserService {
     public Customer findByCustomerIdAndEmail(long customerId, String email) {
     	return customerRepository.findByCustomerIdAndEmail(customerId, email);
     }
+    
+    public Contact findByContactIdAndEmail(long customerId, String email) {
+    	return contactRepository.findByCustomerIdAndEmail(customerId, email);
+    }
 }
