@@ -24,7 +24,7 @@ public class Contact implements java.io.Serializable {
 	private String lastName;
 	private String phone;
 	private String email;
-	@Column(name = "birthday")
+	@Column(name = "birthdate")
 	private Date dob;
 	@Column(name = "otherstreet")
 	private String address;
