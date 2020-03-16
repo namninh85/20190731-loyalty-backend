@@ -217,13 +217,10 @@ public class ApiUserController {
 				aCustomer.setInterestedFields(joined);
 			}
 
-			if (StringUtils.isEmpty(aCustomer.getQrcodeImg())) {
-				aCustomer.setQrcodeImg(
-						generateQRCode(aCustomer.getCustomerId(), aCustomer.getEmail(), aCustomer.getFirstName()));
-				aContact.setQrcodeImg(
-						generateQRCode(aContact.getCustomerId(), aContact.getEmail(), aContact.getLastName()));
-				
-			}
+			aCustomer.setQrcodeImg(
+					generateQRCode(aCustomer.getCustomerId(), aCustomer.getEmail(), aCustomer.getFirstName()));
+			aContact.setQrcodeImg(
+					generateQRCode(aContact.getCustomerId(), aContact.getEmail(), aContact.getLastName()));
 
 			Customer saved = userService.createOrUpdateCustomer(aCustomer);
 			Contact contactSaved = userService.createOrUpdateCustomer(aContact);
