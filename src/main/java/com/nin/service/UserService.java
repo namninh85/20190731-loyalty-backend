@@ -31,9 +31,10 @@ public class UserService {
     private RoleService roleService;
 
     @Autowired
-    public UserService(UserRepository userRepository, CustomerRepository customerRepository, PasswordEncoder passwordEncoder, RoleService roleService) {
+    public UserService(UserRepository userRepository, CustomerRepository customerRepository, ContactRepository contactRepository, PasswordEncoder passwordEncoder, RoleService roleService) {
         this.userRepository = userRepository;
         this.customerRepository = customerRepository;
+        this.contactRepository = contactRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleService = roleService;
     }
