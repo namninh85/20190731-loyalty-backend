@@ -1,8 +1,10 @@
 package com.nin.service;
 
+import com.nin.model.Contact;
 import com.nin.model.Customer;
 import com.nin.model.Role;
 import com.nin.model.User;
+import com.nin.repository.ContactRepository;
 import com.nin.repository.CustomerRepository;
 import com.nin.repository.UserRepository;
 
@@ -24,6 +26,7 @@ public class UserService {
 
     private UserRepository userRepository;
     private CustomerRepository customerRepository;
+    private ContactRepository contactRepository;
     private PasswordEncoder passwordEncoder;
     private RoleService roleService;
 
@@ -64,6 +67,10 @@ public class UserService {
     
     public Customer createOrUpdateCustomer(Customer customer) {
     	return customerRepository.save(customer);
+    }
+    
+    public Contact createOrUpdateCustomer(Contact customer) {
+    	return contactRepository.save(customer);
     }
 
     private void addRoleToUser(User user, String roleStr) {

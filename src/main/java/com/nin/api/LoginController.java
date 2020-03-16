@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nin.dto.LoginDTO;
+import com.nin.model.Contact;
 import com.nin.model.Customer;
 import com.nin.model.User;
 import com.nin.service.UserService;
@@ -135,6 +136,15 @@ public class LoginController {
 			aCustomer.setEmail(newUser.getEmail());
 
 			userService.createOrUpdateCustomer(aCustomer);
+			
+			Contact aContact = new Contact();
+			aContact.setCustomerId(newUser.getId());
+			aContact.setEmail(newUser.getEmail());
+			aContact.setLastName("new boy");
+
+			userService.createOrUpdateCustomer(aCustomer);
+			
+			
 			
 			isCreateNew = 1;
 		}
