@@ -221,7 +221,7 @@ public class ApiUserController {
 				aCustomer.setQrcodeImg(
 						generateQRCode(aCustomer.getCustomerId(), aCustomer.getEmail(), aCustomer.getFirstName()));
 				aContact.setQrcodeImg(
-						generateQRCode(aContact.getCustomerId(), aContact.getEmail(), aContact.getFirstName()));
+						generateQRCode(aContact.getCustomerId(), aContact.getEmail(), aContact.getLastName()));
 				
 			}
 
