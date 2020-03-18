@@ -33,6 +33,7 @@ public class Contact implements java.io.Serializable {
 	
 	@Column(name = "source_by__c")
 	private String sourceBy;
+	private String sfid;
 		
 	public Contact() {
 	}
@@ -112,6 +113,15 @@ public class Contact implements java.io.Serializable {
 	public void setSourceBy(String sourceBy) {
 		this.sourceBy = "loyalty_mobile";
 	}
+
+	public String getSfid() {
+		return sfid;
+	}
+
+	public void setSfid(String sfid) {
+		this.sfid = sfid;
+	}
+	
 	
 	
 }

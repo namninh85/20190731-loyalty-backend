@@ -218,9 +218,9 @@ public class ApiUserController {
 			}
 
 			aCustomer.setQrcodeImg(
-					generateQRCode(aCustomer.getCustomerId(), aCustomer.getEmail(), aCustomer.getFirstName()));
+					generateQRCode(aCustomer.getCustomerId(), aCustomer.getEmail(), aCustomer.getFirstName(), aContact.getSfid()));
 			aContact.setQrcodeImg(
-					generateQRCode(aContact.getCustomerId(), aContact.getEmail(), aContact.getLastName()));
+					generateQRCode(aContact.getCustomerId(), aContact.getEmail(), aContact.getLastName(), aContact.getSfid()));
 
 			Customer saved = userService.createOrUpdateCustomer(aCustomer);
 			Contact contactSaved = userService.createOrUpdateCustomer(aContact);
@@ -239,8 +239,8 @@ public class ApiUserController {
 		}
 	}
 
-	private String generateQRCode(long customerId, String email, String name) {
-		String q = "CustomerId: " + customerId + " ||| " + "email: " + email + " ||| " + "Name: " + name;
+	private String generateQRCode(long customerId, String email, String name, String sfid) {
+		String q = "CustomerId: " + customerId + " ||| " + "email: " + email + " ||| " + "Name: " + name + "|||sfid:" + sfid;
 		String url = null;
 		try {
 			url = "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=" + URLEncoder.encode(q, "UTF-8");
