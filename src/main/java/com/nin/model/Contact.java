@@ -30,6 +30,9 @@ public class Contact implements java.io.Serializable {
 	private String address;
 	@Column(name = "qr_code_link__c")
 	private String qrcodeImg;
+	
+	@Column(name = "source_by__c")
+	private String sourceBy;
 		
 	public Contact() {
 	}
@@ -100,6 +103,14 @@ public class Contact implements java.io.Serializable {
 
 	public void setQrcodeImg(String qrcodeImg) {
 		this.qrcodeImg = qrcodeImg;
+	}
+	
+	public String getSourceBy() {
+		return sourceBy;
+	}
+
+	public void setSourceBy(String sourceBy) {
+		this.sourceBy = "loyalty_mobile";
 	}
 	
 	
