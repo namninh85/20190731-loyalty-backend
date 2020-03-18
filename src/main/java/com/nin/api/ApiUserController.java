@@ -240,7 +240,7 @@ public class ApiUserController {
 	}
 
 	private String generateQRCode(long customerId, String email, String name, String sfid) {
-		String q = "CustomerId: " + customerId + " ||| " + "email: " + email + " ||| " + "Name: " + name + "|||sfid:" + sfid;
+		String q = "CustomerId:" + customerId + "|||" + "email:" + email + "|||" + "Name:" + name + "|||sfid:" + sfid;
 		String url = null;
 		try {
 			url = "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=" + URLEncoder.encode(q, "UTF-8");
